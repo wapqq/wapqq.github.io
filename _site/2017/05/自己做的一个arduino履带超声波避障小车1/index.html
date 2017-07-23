@@ -7,17 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
 
-  <title>“hehhehehehe”</title>
-  <meta name="description" content="　　现在这个点这我看到网上有很多小伙伴做的超声波壁障小车都是用减速电机来作为动力输出，我觉得自己再做一个这样的意义也不怎么大，正好手头也没有电机驱动板。于是我就想能不能用连续旋转舵机舵机来作为动力输出，实验室也有很多这样的的舵机，我就不用在某宝上花钱买了O(∩_∩)O,利用一周多的课余时间终于把这个小玩意儿搞好了...">
+  <title>“Jekyll，自己做了一个arduino履带超声波避障小车&quot;</title>
+  <meta name="description" content="　　这我看到网上有很多小伙伴做的超声波壁障小车都是用减速电机来作为动力输出，我觉得自己再做一个这样的意义也不怎么大，正好手头也没有电机驱动板。于是我就想能不能用连续旋转舵机舵机来作为动力输出，实验室也有很多这样的的舵机，我就不用在某宝上花钱买了O(∩_∩)O,利用一周多的课余时间终于把这个小玩意儿搞好了，本着开源...">
   <meta name="author" content="robotkang">
 
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="“hehhehehehe”">
-  <meta name="twitter:description" content="　　现在这个点这我看到网上有很多小伙伴做的超声波壁障小车都是用减速电机来作为动力输出，我觉得自己再做一个这样的意义也不怎么大，正好手头也没有电机驱动板。于是我就想能不能用连续旋转舵机舵机来作为动力输出，实验室也有很多这样的的舵机，我就不用在某宝上花钱买了O(∩_∩)O,利用一周多的课余时间终于把这个小玩意儿搞好了...">
+  <meta name="twitter:title" content="“Jekyll，自己做了一个arduino履带超声波避障小车&quot;">
+  <meta name="twitter:description" content="　　这我看到网上有很多小伙伴做的超声波壁障小车都是用减速电机来作为动力输出，我觉得自己再做一个这样的意义也不怎么大，正好手头也没有电机驱动板。于是我就想能不能用连续旋转舵机舵机来作为动力输出，实验室也有很多这样的的舵机，我就不用在某宝上花钱买了O(∩_∩)O,利用一周多的课余时间终于把这个小玩意儿搞好了，本着开源...">
   
   <meta property="og:type" content="article">
-  <meta property="og:title" content="“hehhehehehe”">
-  <meta property="og:description" content="　　现在这个点这我看到网上有很多小伙伴做的超声波壁障小车都是用减速电机来作为动力输出，我觉得自己再做一个这样的意义也不怎么大，正好手头也没有电机驱动板。于是我就想能不能用连续旋转舵机舵机来作为动力输出，实验室也有很多这样的的舵机，我就不用在某宝上花钱买了O(∩_∩)O,利用一周多的课余时间终于把这个小玩意儿搞好了...">
+  <meta property="og:title" content="“Jekyll，自己做了一个arduino履带超声波避障小车&quot;">
+  <meta property="og:description" content="　　这我看到网上有很多小伙伴做的超声波壁障小车都是用减速电机来作为动力输出，我觉得自己再做一个这样的意义也不怎么大，正好手头也没有电机驱动板。于是我就想能不能用连续旋转舵机舵机来作为动力输出，实验室也有很多这样的的舵机，我就不用在某宝上花钱买了O(∩_∩)O,利用一周多的课余时间终于把这个小玩意儿搞好了，本着开源...">
   
   <link rel="icon" type="image/png" href="/images/favicon.png" />
   <link href="/images/favicon.png" rel="shortcut icon" type="image/png">
@@ -25,8 +25,8 @@
   <link rel="stylesheet" href="/css/main.css">
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
 
-  <link rel="canonical" href="/2017/05/%E8%87%AA%E5%B7%B1%E5%81%9A%E7%9A%84%E4%B8%80%E4%B8%AAarduino%E5%B1%A5%E5%B8%A6%E8%B6%85%E5%A3%B0%E6%B3%A2%E9%81%BF%E9%9A%9C%E5%B0%8F%E8%BD%A61/">
-  <link rel="alternate" type="application/rss+xml" title="王浩" href="/feed.xml">
+  <link rel="canonical" href="http://robotkang.cc/2017/05/%E8%87%AA%E5%B7%B1%E5%81%9A%E7%9A%84%E4%B8%80%E4%B8%AAarduino%E5%B1%A5%E5%B8%A6%E8%B6%85%E5%A3%B0%E6%B3%A2%E9%81%BF%E9%9A%9C%E5%B0%8F%E8%BD%A61/">
+  <link rel="alternate" type="application/rss+xml" title="wang" href="http://robotkang.cc/feed.xml">
   
   <meta name="google-site-verification" content="1-1ZlHoRvM0T2FqPbW2S-qLgYXN6rsn52kErlMPd_gw" />
 
@@ -35,6 +35,16 @@
 
 
 <!-- 百度统计 -->
+  
+  <script>
+      var _hmt = _hmt || [];
+      (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?144d500dd9ac4a65465a14b95f3e4ade";
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(hm, s);
+      })();
+  </script>
   
 
 <!-- google 统计 -->
@@ -107,22 +117,28 @@ p.flower {background-image: url(http://7sbmib.com1.z0.glb.clouddn.com/body_backg
     <div class="panel-main__content">
         <!-- 头像效果-start -->
         <div class="ih-item circle effect right_to_left">            
-            <a href="/#blog" title="前往 王浩 的主页" class="blog-button">
+            <a href="/#blog" title="前往 wang 的主页" class="blog-button">
                 <div class="img"><img src="/images/avatar.jpg" alt="img"></div>
                 <div class="info">
                     <div class="info-back">
                         <h1> 
                             
+                                RobotKang
+                            
                         </h1>
                         <p>
                            
+                                Python/机器学习/嵌入式
+                            
                         </p>
                     </div>
                 </div>
             </a>
         </div>
         <!-- 头像效果-end -->
-        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for 王浩" class="blog-button">王浩</a></h1>
+        <h1 class="panel-cover__title panel-title"><a href="/#blog" title="link to homepage for wang" class="blog-button">wang</a></h1>
+        
+        <span class="panel-cover__subtitle panel-subtitle">自留地</span>
         
         <hr class="panel-cover__divider" style="height:1px;border:none;border-top:1px solid #555555;"/>
         <p class="panel-cover__description">欢迎来到我的个人网站~</p>
@@ -208,7 +224,7 @@ p.flower {background-image: url(http://7sbmib.com1.z0.glb.clouddn.com/body_backg
 
 <article class="post-container post-container--single" itemscope itemtype="http://schema.org/BlogPosting">
   <header class="post-header">
-    <h1 class="post-title">“hehhehehehe”</h1>
+    <h1 class="post-title">“Jekyll，自己做了一个arduino履带超声波避障小车"</h1>
     <div class="post-meta" style="color:#FF6633">
       <img src="/images/calendar.png" width="20px"/> 
       <time datetime="2017-05-25 00:00:00 +0800" itemprop="datePublished" class="post-meta__date date">2017-05-25</time>  
@@ -220,7 +236,7 @@ p.flower {background-image: url(http://7sbmib.com1.z0.glb.clouddn.com/body_backg
 
   <section class="post">
 
-    <p>　　现在这个点这我看到网上有很多小伙伴做的超声波壁障小车都是用减速电机来作为动力输出，我觉得自己再做一个这样的意义也不怎么大，正好手头也没有电机驱动板。于是我就想能不能用连续旋转舵机舵机来作为动力输出，实验室也有很多这样的的舵机，我就不用在某宝上花钱买了O(∩_∩)O,利用一周多的课余时间终于把这个小玩意儿搞好了，本着开源共享的理念，下面就让我细细道来</p>
+    <p>　　这我看到网上有很多小伙伴做的超声波壁障小车都是用减速电机来作为动力输出，我觉得自己再做一个这样的意义也不怎么大，正好手头也没有电机驱动板。于是我就想能不能用连续旋转舵机舵机来作为动力输出，实验室也有很多这样的的舵机，我就不用在某宝上花钱买了O(∩_∩)O,利用一周多的课余时间终于把这个小玩意儿搞好了，本着开源共享的理念，下面就让我细细道来</p>
 
 <p><strong>材料：</strong>    <br />
  - 小车底盘、履带        <br />
@@ -524,7 +540,7 @@ p.flower {background-image: url(http://7sbmib.com1.z0.glb.clouddn.com/body_backg
           
           <!-- Weibo -->
           <li class="navigation__item_social">
-            <a href="http://weibo.com/12345678" title="@12345678 的微博" target="_blank">
+            <a href="http://weibo.com/123456789" title="@123456789 的微博" target="_blank">
               <i class='social fa fa-weibo fa-2x'></i>
               <span class="label">Weibo</span>
             </a>
@@ -534,7 +550,7 @@ p.flower {background-image: url(http://7sbmib.com1.z0.glb.clouddn.com/body_backg
           
           <!-- Github -->
           <li class="navigation__item_social">
-            <a href="https://github.com/wanghao" title="@wanghao 的 Github" target="_blank">
+            <a href="https://github.com/MengZheK" title="@MengZheK 的 Github" target="_blank">
               <i class='social fa fa-github fa-2x'></i>
               <span class="label">Github</span>
             </a>
@@ -556,7 +572,7 @@ p.flower {background-image: url(http://7sbmib.com1.z0.glb.clouddn.com/body_backg
           
           <!-- Email -->
           <li class="navigation__item_social">
-            <a href="mailto:teacherjameswang@163.com" title="Contact me">
+            <a href="mailto:robotkang@foxmail.com" title="Contact me">
               <i class='social fa fa-envelope fa-2x'></i>
               <span class="label">Email</span>
             </a>
@@ -572,7 +588,7 @@ p.flower {background-image: url(http://7sbmib.com1.z0.glb.clouddn.com/body_backg
 
         <div class = "footer_div">  
            <p class="copyright text-muted">
-            Copyright &copy; 王浩 2017 Theme by <a href="http://robotkang.cc/">robotkang</a> |
+            Copyright &copy; wang 2017 Theme by <a href="http://robotkang.cc/">robotkang</a> |
             <iframe
                 style="margin-left: 2px; margin-bottom:-5px;"
                 frameborder="0" scrolling="0" width="91px" height="20px"

@@ -1,12 +1,12 @@
 # Basic
- title: 王浩
-subtitle: 个人站
+title: wang
+subtitle: 自留地
 description: 欢迎来到我的个人网站~
 # 头像里面的标题
-avatarTitle: WangHao
+avatarTitle: RobotKang
 # 头像里面的描述
-avatarDesc: 教育技术/机器人
-url: "http://wapqq.github.io”
+avatarDesc: Python/机器学习/嵌入式
+url: "http://robotkang.cc"
 
 # Comment
 comment:
@@ -16,12 +16,12 @@ comment:
 
 # Social
 social:
-    weibo: 12345678
+    weibo: 123456789
     weixing: kang1390305137 
-    github: wanghao
+    github: MengZheK
     # twitter: 
-    mail: teacherjameswang@163.com
-   
+    mail: robotkang@foxmail.com
+    csdn: robotkang
 
 # 百度统计 
 # 使用博客模板请去掉或者更换 id 
@@ -65,6 +65,9 @@ nav:
     - {title: 留言, description: liuyan, url: '/liuyan'}
     - {title: 资源, description: ziyuan, url: '/ziyuan'}
     - {title: 关于我, description: about, url: '/about'}
+
+          
+    
 
 # Pagination
 gems: [jekyll-paginate]
