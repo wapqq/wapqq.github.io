@@ -4,10 +4,10 @@ title: "Arduino与Kinect打造体感智能车"
 date: 2017-04-10
 description: "Arduino，Kinect，体感智能车"
 tag:  Arduino
----   
+---  
 
 
-　　这个小项目是之前在学校实验室做的，已成功运行，现在把相关的资料记录下来，便于日后察阅。     
+　　这个小项目是之前在学校实验室做的，已成功运行，现在把相关的资料记录下来，便于日后察阅。  
 
 　　之前大部分步骤是按照奥松的这篇教程来做的，原文地址：<a href="http://www.alsrobot.cn/article-114.html" target="_blank">奥松</a>，有什么问题也可以在文章末尾给我留言。  
  
@@ -16,7 +16,7 @@ tag:  Arduino
   体感智能车的原理非常的简单，就是利用Kinect采集人体的姿体信息，然后通过蓝牙串口向Arduino发送字符命令。Arduino通过相应的字符命令控制双H桥电机驱动模块实现小车的前进后退等动作。项目主要用到小车底盘套件、蓝牙、控制器等...
 <img src="http://omjh2j5h3.bkt.clouddn.com/%E6%99%BA%E8%83%BD%E8%BD%A6/1.png" width="380" height="230" alt="photos"/>
 
-###Arduino实现串口控制小车
+### Arduino实现串口控制小车
 
 
 
@@ -24,23 +24,23 @@ tag:  Arduino
 
 
 一、安装4WD小车，小车是纯金属的外壳比较抗撞不容易损坏，亚克力的也行，视自己情况而定。
-[安装视频](http://v.youku.com/v_show/id_XNTU2NjY3MDI0.html)
+[安装视频][1]
 <img src="http://omjh2j5h3.bkt.clouddn.com/%E6%99%BA%E8%83%BD%E8%BD%A6/3.png" width="380" height="230" alt="photos"/>
 
 
       安装好小车地盘后再小车地盘内部安装双H桥驱动和电池将控制引脚用3P杜邦线接到Arduino上，连接好电源向Arduino内烧录程序（编译软件为Arduino IDE）。代码如下： 
 
 	    #define  pinI1  9      //定义I1接口
-        #define  pinI2  8      //定义I2接口
-        #define  speedpin 10   //定义EA(PWM调速)接口
-        #define  pinI3  4      //定义I3接口
-        #define  pinI4  5      //定义I4接口
-        #define  speedpin1 6   //定义EB(PWM调速)接口 
-        #define SPEED    150 
-        char opt = ' ' ; 
+	    #define  pinI2  8      //定义I2接口
+	    #define  speedpin 10   //定义EA(PWM调速)接口
+	    #define  pinI3  4      //定义I3接口
+	    #define  pinI4  5      //定义I4接口
+	    #define  speedpin1 6   //定义EB(PWM调速)接口 
+	    #define SPEED    150 
+	    char opt = ' ' ; 
 	void setup()
 	{  
- 	 Serial.begin(115200);
+    Serial.begin(115200);
 	  pinMode(pinI1,OUTPUT);       //初始化电机控制引脚为输出
 	  pinMode(pinI2,OUTPUT);
 	  pinMode(speedpin,OUTPUT);
@@ -65,7 +65,7 @@ tag:  Arduino
 	        break;
 	      case 'd':
 	        youzhuan(200);
-		break;
+	    break;
 	      case 'x':
 	        Stop(200);
 	        break;
@@ -114,7 +114,7 @@ tag:  Arduino
 	 }
 	  //左转函数time为直行的时间  单位ms
 	 void zuozhuan(int time)
- 	{
+   {
 	     analogWrite(speedpin,SPEED);//输入模拟值进行设定速度
 	     analogWrite(speedpin1,SPEED);
      
@@ -125,7 +125,7 @@ tag:  Arduino
 	     digitalWrite(pinI2,LOW);     
 	     delay(time);
 	 }
- 	  //后退函数time为后退的时间  单位ms
+     //后退函数time为后退的时间  单位ms
 	 void Retreat(int time)
 	 {
 	     analogWrite(speedpin,SPEED);//输入模拟值进行设定速度
@@ -158,7 +158,7 @@ tag:  Arduino
         程序下载好后安装蓝牙模块，通过串口助手进行测试，确定字符命令可以控制小车。
 
 
-###Kinect与Arduino进行串口通信
+### Kinect与Arduino进行串口通信
 
 
 
@@ -176,218 +176,218 @@ tag:  Arduino
           控制小车的代码如下：
 
 
-		import SimpleOpenNI.*;
-		SimpleOpenNI  kinect;
+	    import SimpleOpenNI.*;
+	    SimpleOpenNI  kinect;
  
-		import processing.serial.*;
-		Serial port;
+	    import processing.serial.*;
+	    Serial port;
  
-		PFont myFont;
-		String myStr;
-		String Str_w;
-		String Str_s;
-		String Str_a;
-		String Str_d;
-		String Str_x;
-		String Str_temp_NO;
-		String Str_temp_Yes;
+	    PFont myFont;
+	    String myStr;
+	    String Str_w;
+	    String Str_s;
+	    String Str_a;
+	    String Str_d;
+	    String Str_x;
+	    String Str_temp_NO;
+	    String Str_temp_Yes;
  
-		PVector right_hand;
-		PVector right_hip;
+	    PVector right_hand;
+	    PVector right_hip;
  
-		PVector head;
+	    PVector head;
  
-		PVector left_hand;
-		PVector left_hip;
+	    PVector left_hand;
+	    PVector left_hip;
  
-		PVector difference;
-		float   shouju;
-		float   youtou;
-		float   zuotou;
-		float   youhip;
-		float   zuohip;
+	    PVector difference;
+	    float   shouju;
+	    float   youtou;
+	    float   zuotou;
+	    float   youhip;
+	    float   zuohip;
  
-		char ch_w= 'w';
-		char ch_s= 's';
-		char ch_a= 'a';
-		char ch_d= 'd';
-		char ch_x= 'x';
+	    char ch_w= 'w';
+	    char ch_s= 's';
+	    char ch_a= 'a';
+	    char ch_d= 'd';
+	    char ch_x= 'x';
  
-		void setup() 
-		{
-		  size(640, 600);   
-		  kinect = new SimpleOpenNI(this); 
-		  kinect.enableDepth(); 
-		  kinect.enableRGB();  
-		  kinect.setMirror(true);  
-		  kinect.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL); 
+	    void setup() 
+	    {
+	      size(640, 600);   
+	      kinect = new SimpleOpenNI(this); 
+	      kinect.enableDepth(); 
+	      kinect.enableRGB();  
+	      kinect.setMirror(true);  
+	      kinect.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL); 
   
-		  myFont = createFont("黑体", 32); 
-		  myStr = "重庆文理学院机器人研究所"; 
-		  Str_w = "前进";
-		  Str_s = "后退";
-		  Str_a = "左转";
-		  Str_d = "右转";
-		  Str_x = "停止"; 
-		  Str_temp_NO = "未识别";
-		  Str_temp_Yes = "连接成功";
+	      myFont = createFont("黑体", 32); 
+	      myStr = "重庆文理学院机器人研究所"; 
+	      Str_w = "前进";
+	      Str_s = "后退";
+	      Str_a = "左转";
+	      Str_d = "右转";
+	      Str_x = "停止"; 
+	      Str_temp_NO = "未识别";
+	      Str_temp_Yes = "连接成功";
   
-		  right_hand = new PVector();
-		  right_hip = new PVector();
+	      right_hand = new PVector();
+	      right_hip = new PVector();
  
-		  head = new PVector();
+	      head = new PVector();
  
-		  left_hand = new PVector();
-		  left_hip = new PVector();
+	      left_hand = new PVector();
+	      left_hip = new PVector();
   
-		  println(Serial.list());//定义串口
-		  String portName = Serial.list()[0];
-		  port = new Serial(this, portName, 115200);//波特率
-		}
+	      println(Serial.list());//定义串口
+	      String portName = Serial.list()[0];
+	      port = new Serial(this, portName, 115200);//波特率
+	    }
  
-		void draw() 
-		{ 
-		  background(80,100,140);//
-		kinect.update();
+	    void draw() 
+	    { 
+	      background(80,100,140);//
+	    kinect.update();
   
-		  //PImage depthImage = kinect.depthImage();
-		  //image(kinect.depthImage(),0, 0);  
-		  PImage rgbImage = kinect.rgbImage();  
-		  image(rgbImage, 0, 0); 
+	      //PImage depthImage = kinect.depthImage();
+	      //image(kinect.depthImage(),0, 0);  
+	      PImage rgbImage = kinect.rgbImage();  
+	      image(rgbImage, 0, 0); 
   
-		  fill(0,0,255); 
-		  textFont(myFont); 
-		  text(myStr, 100, 530);   
-		  text("www.cqwu.net" , 195, 565);
+	      fill(0,0,255); 
+	      textFont(myFont); 
+	      text(myStr, 100, 530);   
+	      text("www.cqwu.net" , 195, 565);
    
-		  IntVector userList = new IntVector();
-		  kinect.getUsers(userList);
+	      IntVector userList = new IntVector();
+	      kinect.getUsers(userList);
  
-		  if (userList.size() > 0)
-		  {
-		    int userId = userList.get(0);
-		    onEndCalibration(userId, true);
+	      if (userList.size() > 0)
+	      {
+	        int userId = userList.get(0);
+	        onEndCalibration(userId, true);
  
-		    if ( kinect.isTrackingSkeleton(userId))
-		    {
-		        fill(0,0,255);
-		        textFont(myFont); 
-		        text(myStr, 100, 530);   
-		        text("www.cqwu.net " , 195, 565);
+	        if ( kinect.isTrackingSkeleton(userId))
+	        {
+	            fill(0,0,255);
+	            textFont(myFont); 
+	            text(myStr, 100, 530);   
+	            text("www.cqwu.net " , 195, 565);
         
-		        fill(0, 255, 0);
-		        textSize(25);
-		        text(Str_temp_Yes, 270,30);
+	            fill(0, 255, 0);
+	            textSize(25);
+	            text(Str_temp_Yes, 270,30);
         
-		        kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND,right_hand);
-		        kinect.convertRealWorldToProjective(right_hand, right_hand);
+	            kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND,right_hand);
+	            kinect.convertRealWorldToProjective(right_hand, right_hand);
       
-		        kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HIP,right_hip);
-		        kinect.convertRealWorldToProjective(right_hip, right_hip);
+	            kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HIP,right_hip);
+	            kinect.convertRealWorldToProjective(right_hip, right_hip);
             
-		        kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_HEAD,head);
-		        kinect.convertRealWorldToProjective(head, head);
+	            kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_HEAD,head);
+	            kinect.convertRealWorldToProjective(head, head);
         
-		        kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HAND,left_hand);
-		        kinect.convertRealWorldToProjective(left_hand, left_hand);
+	            kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HAND,left_hand);
+	            kinect.convertRealWorldToProjective(left_hand, left_hand);
               
-		        kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HIP,left_hip);
-		        kinect.convertRealWorldToProjective(left_hip, left_hip);
+	            kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HIP,left_hip);
+	            kinect.convertRealWorldToProjective(left_hip, left_hip);
         
-		       //textSize(20);
-		        difference = PVector.sub(right_hand, left_hand);
-		        shouju = difference.mag();
-		// text("shouju: " + int(shouju), 20, 20);
+	           //textSize(20);
+	            difference = PVector.sub(right_hand, left_hand);
+	            shouju = difference.mag();
+	    // text("shouju: " + int(shouju), 20, 20);
          
-		        difference = PVector.sub(right_hand, head);
-		        youtou = difference.mag();
-		      //  text("youtou: " + int(youtou), 20, 45);
+	            difference = PVector.sub(right_hand, head);
+	            youtou = difference.mag();
+	          //  text("youtou: " + int(youtou), 20, 45);
         
-		        difference = PVector.sub(left_hand, head);
-		        zuotou = difference.mag();
-		      //  text("zuotou: " + int(zuotou), 20, 70);
+	            difference = PVector.sub(left_hand, head);
+	            zuotou = difference.mag();
+	          //  text("zuotou: " + int(zuotou), 20, 70);
         
-		        difference = PVector.sub(right_hand, right_hip);
-		        youhip = difference.mag();
-		      //  text("youhip: " + int(youhip), 20, 95);
+	            difference = PVector.sub(right_hand, right_hip);
+	            youhip = difference.mag();
+	          //  text("youhip: " + int(youhip), 20, 95);
         
-		        difference = PVector.sub(left_hand, right_hip);
-		        zuohip = difference.mag();
-             //  text("zuohip: " + int(zuohip), 20, 120); 
+	            difference = PVector.sub(left_hand, right_hip);
+	            zuohip = difference.mag();
+	         //  text("zuohip: " + int(zuohip), 20, 120); 
         
-		        fill(255, 255, 0);
-		        textSize(20);
-		        if(shouju>400 && youtou>200 && zuotou>200 && youhip>200 && zuohip>200)
-		        {
-		          text(Str_w, 20, 40);
-		          port.write(ch_w);
-		        }
-		        else if(shouju<200 && youtou<200 && zuotou<200 && youhip>200 && zuohip>200)
-		        {
-		          text(Str_s, 20, 40);
-		          port.write(ch_s); 
-		        }
-		        else if(shouju>300 && youtou>180 && zuotou>180 && youhip<150 && zuohip>250)
-		        {
-		          text(Str_a, 20, 40);
-		          port.write(ch_a); 
-		        }
-		        else if(shouju>300 && youtou>180 && zuotou>180 && youhip>200 && zuohip<150)
-		        {
-		          text(Str_d, 20, 40);
-		          port.write(ch_d); 
-		        }
-		        else if(shouju<250 && youtou>180 && zuotou>180 && youhip<180 && zuohip<180)
-		        {
-		          text(Str_x, 20, 40);
-		          port.write(ch_x); 
-		        }        
-		        /***************************************************************
-		        fill(255, 0, 0);
-		        ellipse(left_hip.x, left_hip.y, 15, 15);
-		        ellipse(left_hand.x, left_hand.y, 15, 15);
-		        ellipse(head.x, head.y, 15, 15);
-		        ellipse(right_hip.x, right_hip.y, 15, 15);
-		        ellipse(right_hand.x, right_hand.y, 15, 15);
-		        ****************************************************************/
-		        /****************************************************************
-		        stroke(0, 255, 0);
-		        strokeWeight(4);
-		        line(right_hand.x, right_hand.y, head.x, head.y);
-		        line(right_hand.x, right_hand.y, right_hip.x, right_hip.y);
-		        line(left_hand.x, left_hand.y, head.x, head.y);
-		        line(left_hand.x, left_hand.y, left_hip.x, left_hip.y);
-		        ****************************************************************/
-		    }
-		  }
-		  else
-		  {
-		      fill(255, 0, 0);
-		      textSize(25);
-		      text(Str_temp_NO, 280, 30);
-		  }
-		}
+	            fill(255, 255, 0);
+	            textSize(20);
+	            if(shouju>400 && youtou>200 && zuotou>200 && youhip>200 && zuohip>200)
+	            {
+	              text(Str_w, 20, 40);
+	              port.write(ch_w);
+	            }
+	            else if(shouju<200 && youtou<200 && zuotou<200 && youhip>200 && zuohip>200)
+	            {
+	              text(Str_s, 20, 40);
+	              port.write(ch_s); 
+	            }
+	            else if(shouju>300 && youtou>180 && zuotou>180 && youhip<150 && zuohip>250)
+	            {
+	              text(Str_a, 20, 40);
+	              port.write(ch_a); 
+	            }
+	            else if(shouju>300 && youtou>180 && zuotou>180 && youhip>200 && zuohip<150)
+	            {
+	              text(Str_d, 20, 40);
+	              port.write(ch_d); 
+	            }
+	            else if(shouju<250 && youtou>180 && zuotou>180 && youhip<180 && zuohip<180)
+	            {
+	              text(Str_x, 20, 40);
+	              port.write(ch_x); 
+	            }        
+	            /***************************************************************
+	            fill(255, 0, 0);
+	            ellipse(left_hip.x, left_hip.y, 15, 15);
+	            ellipse(left_hand.x, left_hand.y, 15, 15);
+	            ellipse(head.x, head.y, 15, 15);
+	            ellipse(right_hip.x, right_hip.y, 15, 15);
+	            ellipse(right_hand.x, right_hand.y, 15, 15);
+	            ****************************************************************/
+	            /****************************************************************
+	            stroke(0, 255, 0);
+	            strokeWeight(4);
+	            line(right_hand.x, right_hand.y, head.x, head.y);
+	            line(right_hand.x, right_hand.y, right_hip.x, right_hip.y);
+	            line(left_hand.x, left_hand.y, head.x, head.y);
+	            line(left_hand.x, left_hand.y, left_hip.x, left_hip.y);
+	            ****************************************************************/
+	        }
+	      }
+	      else
+	      {
+	          fill(255, 0, 0);
+	          textSize(25);
+	          text(Str_temp_NO, 280, 30);
+	      }
+	    }
  
-		// user-tracking callbacks!
-		void onNewUser(int userId) {
-		  println("start pose detection");
-		  kinect.startPoseDetection("Psi", userId);
-		}
-		void onEndCalibration(int userId, boolean successful) {
-		  if (successful) {
-		    println("  User calibrated !!!");
-		    kinect.startTrackingSkeleton(userId);
-		  }
-		  else {
-		    println("  Failed to calibrate user !!!");
-		    kinect.startPoseDetection("Psi", userId);
-		  }
-		}
-		void onStartPose(String pose, int userId) {
-		  println("Started pose for user");
-		  kinect.stopPoseDetection(userId);
-		  kinect.requestCalibrationSkeleton(userId, true);
-		}
+	    // user-tracking callbacks!
+	    void onNewUser(int userId) {
+	      println("start pose detection");
+	      kinect.startPoseDetection("Psi", userId);
+	    }
+	    void onEndCalibration(int userId, boolean successful) {
+	      if (successful) {
+	        println("  User calibrated !!!");
+	        kinect.startTrackingSkeleton(userId);
+	      }
+	      else {
+	        println("  Failed to calibrate user !!!");
+	        kinect.startPoseDetection("Psi", userId);
+	      }
+	    }
+	    void onStartPose(String pose, int userId) {
+	      println("Started pose for user");
+	      kinect.stopPoseDetection(userId);
+	      kinect.requestCalibrationSkeleton(userId, true);
+	    }
 
 
 
@@ -396,7 +396,7 @@ tag:  Arduino
 
 
 
-----------
+---- 
 >  我觉得生命是最重要的，所以在我心里，没有事情是解决不了的。不是每一个人都可以幸运的过自己理想中的生活，有楼有车当然好了，没有难道哭吗？所以呢，我们一定要享受我们所过的生活。——《新不了情》
 <br>
 
@@ -404,3 +404,4 @@ tag:  Arduino
 
 
 
+[1]:	http://v.youku.com/v_show/id_XNTU2NjY3MDI0.html

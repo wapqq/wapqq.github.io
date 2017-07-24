@@ -5,8 +5,8 @@
     <description>欢迎来到我的个人网站~</description>
     <link>http://wapqq.github.io/</link>
     <atom:link href="http://wapqq.github.io/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Sun, 23 Jul 2017 16:23:02 +0800</pubDate>
-    <lastBuildDate>Sun, 23 Jul 2017 16:23:02 +0800</lastBuildDate>
+    <pubDate>Mon, 24 Jul 2017 14:11:30 +0800</pubDate>
+    <lastBuildDate>Mon, 24 Jul 2017 14:11:30 +0800</lastBuildDate>
     <generator>Jekyll v3.1.1</generator>
     
       <item>
@@ -571,7 +571,7 @@ GND:模块供电负极&lt;/p&gt;
     #define SPEED    150 
     char opt = &#39; &#39; ; 
 void setup()
-{    	 Serial.begin(115200);
+{       Serial.begin(115200);
   pinMode(pinI1,OUTPUT);       //初始化电机控制引脚为输出
   pinMode(pinI2,OUTPUT);
   pinMode(speedpin,OUTPUT);
@@ -596,7 +596,7 @@ void setup()
         break;
       case &#39;d&#39;:
         youzhuan(200);
-	break;
+    break;
       case &#39;x&#39;:
         Stop(200);
         break;
@@ -640,7 +640,7 @@ void setup()
      delay(time);
  }
   //左转函数time为直行的时间  单位ms
- void zuozhuan(int time)  	{
+ void zuozhuan(int time)    {
      analogWrite(speedpin,SPEED);//输入模拟值进行设定速度
      analogWrite(speedpin1,SPEED);      
      digitalWrite(pinI4,LOW);//使直流电机（右）逆时针转
@@ -648,7 +648,7 @@ void setup()
      digitalWrite(pinI1,HIGH);//使直流电机（左）顺时针转
      digitalWrite(pinI2,LOW);     
      delay(time);
- }  	  //后退函数time为后退的时间  单位ms
+ }      //后退函数time为后退的时间  单位ms
  void Retreat(int time)
  {
      analogWrite(speedpin,SPEED);//输入模拟值进行设定速度
@@ -685,186 +685,186 @@ void setup()
 
 &lt;p&gt;          控制小车的代码如下：&lt;/p&gt;
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;	import SimpleOpenNI.*;
-	SimpleOpenNI  kinect;  
-	import processing.serial.*;
-	Serial port;  
-	PFont myFont;
-	String myStr;
-	String Str_w;
-	String Str_s;
-	String Str_a;
-	String Str_d;
-	String Str_x;
-	String Str_temp_NO;
-	String Str_temp_Yes;  
-	PVector right_hand;
-	PVector right_hip;  
-	PVector head;  
-	PVector left_hand;
-	PVector left_hip;  
-	PVector difference;
-	float   shouju;
-	float   youtou;
-	float   zuotou;
-	float   youhip;
-	float   zuohip;  
-	char ch_w= &#39;w&#39;;
-	char ch_s= &#39;s&#39;;
-	char ch_a= &#39;a&#39;;
-	char ch_d= &#39;d&#39;;
-	char ch_x= &#39;x&#39;;  
-	void setup() 
-	{
-	  size(640, 600);   
-	  kinect = new SimpleOpenNI(this); 
-	  kinect.enableDepth(); 
-	  kinect.enableRGB();  
-	  kinect.setMirror(true);  
-	  kinect.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);    
-	  myFont = createFont(&quot;黑体&quot;, 32); 
-	  myStr = &quot;重庆文理学院机器人研究所&quot;; 
-	  Str_w = &quot;前进&quot;;
-	  Str_s = &quot;后退&quot;;
-	  Str_a = &quot;左转&quot;;
-	  Str_d = &quot;右转&quot;;
-	  Str_x = &quot;停止&quot;; 
-	  Str_temp_NO = &quot;未识别&quot;;
-	  Str_temp_Yes = &quot;连接成功&quot;;   
-	  right_hand = new PVector();
-	  right_hip = new PVector();  
-	  head = new PVector();  
-	  left_hand = new PVector();
-	  left_hip = new PVector();   
-	  println(Serial.list());//定义串口
-	  String portName = Serial.list()[0];
-	  port = new Serial(this, portName, 115200);//波特率
-	}  
-	void draw() 
-	{ 
-	  background(80,100,140);//
-	kinect.update();   
-	  //PImage depthImage = kinect.depthImage();
-	  //image(kinect.depthImage(),0, 0);  
-	  PImage rgbImage = kinect.rgbImage();  
-	  image(rgbImage, 0, 0);    
-	  fill(0,0,255); 
-	  textFont(myFont); 
-	  text(myStr, 100, 530);   
-	  text(&quot;www.cqwu.net&quot; , 195, 565);    
-	  IntVector userList = new IntVector();
-	  kinect.getUsers(userList);  
-	  if (userList.size() &amp;gt; 0)
-	  {
-	    int userId = userList.get(0);
-	    onEndCalibration(userId, true);  
-	    if ( kinect.isTrackingSkeleton(userId))
-	    {
-	        fill(0,0,255);
-	        textFont(myFont); 
-	        text(myStr, 100, 530);   
-	        text(&quot;www.cqwu.net &quot; , 195, 565);         
-	        fill(0, 255, 0);
-	        textSize(25);
-	        text(Str_temp_Yes, 270,30);         
-	        kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND,right_hand);
-	        kinect.convertRealWorldToProjective(right_hand, right_hand);       
-	        kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HIP,right_hip);
-	        kinect.convertRealWorldToProjective(right_hip, right_hip);             
-	        kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_HEAD,head);
-	        kinect.convertRealWorldToProjective(head, head);         
-	        kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HAND,left_hand);
-	        kinect.convertRealWorldToProjective(left_hand, left_hand);               
-	        kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HIP,left_hip);
-	        kinect.convertRealWorldToProjective(left_hip, left_hip);         
-	       //textSize(20);
-	        difference = PVector.sub(right_hand, left_hand);
-	        shouju = difference.mag();
-	// text(&quot;shouju: &quot; + int(shouju), 20, 20);          
-	        difference = PVector.sub(right_hand, head);
-	        youtou = difference.mag();
-	      //  text(&quot;youtou: &quot; + int(youtou), 20, 45);         
-	        difference = PVector.sub(left_hand, head);
-	        zuotou = difference.mag();
-	      //  text(&quot;zuotou: &quot; + int(zuotou), 20, 70);         
-	        difference = PVector.sub(right_hand, right_hip);
-	        youhip = difference.mag();
-	      //  text(&quot;youhip: &quot; + int(youhip), 20, 95);         
-	        difference = PVector.sub(left_hand, right_hip);
-	        zuohip = difference.mag();
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;    import SimpleOpenNI.*;
+    SimpleOpenNI  kinect;  
+    import processing.serial.*;
+    Serial port;  
+    PFont myFont;
+    String myStr;
+    String Str_w;
+    String Str_s;
+    String Str_a;
+    String Str_d;
+    String Str_x;
+    String Str_temp_NO;
+    String Str_temp_Yes;  
+    PVector right_hand;
+    PVector right_hip;  
+    PVector head;  
+    PVector left_hand;
+    PVector left_hip;  
+    PVector difference;
+    float   shouju;
+    float   youtou;
+    float   zuotou;
+    float   youhip;
+    float   zuohip;  
+    char ch_w= &#39;w&#39;;
+    char ch_s= &#39;s&#39;;
+    char ch_a= &#39;a&#39;;
+    char ch_d= &#39;d&#39;;
+    char ch_x= &#39;x&#39;;  
+    void setup() 
+    {
+      size(640, 600);   
+      kinect = new SimpleOpenNI(this); 
+      kinect.enableDepth(); 
+      kinect.enableRGB();  
+      kinect.setMirror(true);  
+      kinect.enableUser(SimpleOpenNI.SKEL_PROFILE_ALL);    
+      myFont = createFont(&quot;黑体&quot;, 32); 
+      myStr = &quot;重庆文理学院机器人研究所&quot;; 
+      Str_w = &quot;前进&quot;;
+      Str_s = &quot;后退&quot;;
+      Str_a = &quot;左转&quot;;
+      Str_d = &quot;右转&quot;;
+      Str_x = &quot;停止&quot;; 
+      Str_temp_NO = &quot;未识别&quot;;
+      Str_temp_Yes = &quot;连接成功&quot;;   
+      right_hand = new PVector();
+      right_hip = new PVector();  
+      head = new PVector();  
+      left_hand = new PVector();
+      left_hip = new PVector();   
+      println(Serial.list());//定义串口
+      String portName = Serial.list()[0];
+      port = new Serial(this, portName, 115200);//波特率
+    }  
+    void draw() 
+    { 
+      background(80,100,140);//
+    kinect.update();   
+      //PImage depthImage = kinect.depthImage();
+      //image(kinect.depthImage(),0, 0);  
+      PImage rgbImage = kinect.rgbImage();  
+      image(rgbImage, 0, 0);    
+      fill(0,0,255); 
+      textFont(myFont); 
+      text(myStr, 100, 530);   
+      text(&quot;www.cqwu.net&quot; , 195, 565);    
+      IntVector userList = new IntVector();
+      kinect.getUsers(userList);  
+      if (userList.size() &amp;gt; 0)
+      {
+        int userId = userList.get(0);
+        onEndCalibration(userId, true);  
+        if ( kinect.isTrackingSkeleton(userId))
+        {
+            fill(0,0,255);
+            textFont(myFont); 
+            text(myStr, 100, 530);   
+            text(&quot;www.cqwu.net &quot; , 195, 565);         
+            fill(0, 255, 0);
+            textSize(25);
+            text(Str_temp_Yes, 270,30);         
+            kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HAND,right_hand);
+            kinect.convertRealWorldToProjective(right_hand, right_hand);       
+            kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_RIGHT_HIP,right_hip);
+            kinect.convertRealWorldToProjective(right_hip, right_hip);             
+            kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_HEAD,head);
+            kinect.convertRealWorldToProjective(head, head);         
+            kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HAND,left_hand);
+            kinect.convertRealWorldToProjective(left_hand, left_hand);               
+            kinect.getJointPositionSkeleton(userId, SimpleOpenNI.SKEL_LEFT_HIP,left_hip);
+            kinect.convertRealWorldToProjective(left_hip, left_hip);         
+           //textSize(20);
+            difference = PVector.sub(right_hand, left_hand);
+            shouju = difference.mag();
+    // text(&quot;shouju: &quot; + int(shouju), 20, 20);          
+            difference = PVector.sub(right_hand, head);
+            youtou = difference.mag();
+          //  text(&quot;youtou: &quot; + int(youtou), 20, 45);         
+            difference = PVector.sub(left_hand, head);
+            zuotou = difference.mag();
+          //  text(&quot;zuotou: &quot; + int(zuotou), 20, 70);         
+            difference = PVector.sub(right_hand, right_hip);
+            youhip = difference.mag();
+          //  text(&quot;youhip: &quot; + int(youhip), 20, 95);         
+            difference = PVector.sub(left_hand, right_hip);
+            zuohip = difference.mag();
          //  text(&quot;zuohip: &quot; + int(zuohip), 20, 120);          
-	        fill(255, 255, 0);
-	        textSize(20);
-	        if(shouju&amp;gt;400 &amp;amp;&amp;amp; youtou&amp;gt;200 &amp;amp;&amp;amp; zuotou&amp;gt;200 &amp;amp;&amp;amp; youhip&amp;gt;200 &amp;amp;&amp;amp; zuohip&amp;gt;200)
-	        {
-	          text(Str_w, 20, 40);
-	          port.write(ch_w);
-	        }
-	        else if(shouju&amp;lt;200 &amp;amp;&amp;amp; youtou&amp;lt;200 &amp;amp;&amp;amp; zuotou&amp;lt;200 &amp;amp;&amp;amp; youhip&amp;gt;200 &amp;amp;&amp;amp; zuohip&amp;gt;200)
-	        {
-	          text(Str_s, 20, 40);
-	          port.write(ch_s); 
-	        }
-	        else if(shouju&amp;gt;300 &amp;amp;&amp;amp; youtou&amp;gt;180 &amp;amp;&amp;amp; zuotou&amp;gt;180 &amp;amp;&amp;amp; youhip&amp;lt;150 &amp;amp;&amp;amp; zuohip&amp;gt;250)
-	        {
-	          text(Str_a, 20, 40);
-	          port.write(ch_a); 
-	        }
-	        else if(shouju&amp;gt;300 &amp;amp;&amp;amp; youtou&amp;gt;180 &amp;amp;&amp;amp; zuotou&amp;gt;180 &amp;amp;&amp;amp; youhip&amp;gt;200 &amp;amp;&amp;amp; zuohip&amp;lt;150)
-	        {
-	          text(Str_d, 20, 40);
-	          port.write(ch_d); 
-	        }
-	        else if(shouju&amp;lt;250 &amp;amp;&amp;amp; youtou&amp;gt;180 &amp;amp;&amp;amp; zuotou&amp;gt;180 &amp;amp;&amp;amp; youhip&amp;lt;180 &amp;amp;&amp;amp; zuohip&amp;lt;180)
-	        {
-	          text(Str_x, 20, 40);
-	          port.write(ch_x); 
-	        }        
-	        /***************************************************************
-	        fill(255, 0, 0);
-	        ellipse(left_hip.x, left_hip.y, 15, 15);
-	        ellipse(left_hand.x, left_hand.y, 15, 15);
-	        ellipse(head.x, head.y, 15, 15);
-	        ellipse(right_hip.x, right_hip.y, 15, 15);
-	        ellipse(right_hand.x, right_hand.y, 15, 15);
-	        ****************************************************************/
-	        /****************************************************************
-	        stroke(0, 255, 0);
-	        strokeWeight(4);
-	        line(right_hand.x, right_hand.y, head.x, head.y);
-	        line(right_hand.x, right_hand.y, right_hip.x, right_hip.y);
-	        line(left_hand.x, left_hand.y, head.x, head.y);
-	        line(left_hand.x, left_hand.y, left_hip.x, left_hip.y);
-	        ****************************************************************/
-	    }
-	  }
-	  else
-	  {
-	      fill(255, 0, 0);
-	      textSize(25);
-	      text(Str_temp_NO, 280, 30);
-	  }
-	}  
-	// user-tracking callbacks!
-	void onNewUser(int userId) {
-	  println(&quot;start pose detection&quot;);
-	  kinect.startPoseDetection(&quot;Psi&quot;, userId);
-	}
-	void onEndCalibration(int userId, boolean successful) {
-	  if (successful) {
-	    println(&quot;  User calibrated !!!&quot;);
-	    kinect.startTrackingSkeleton(userId);
-	  }
-	  else {
-	    println(&quot;  Failed to calibrate user !!!&quot;);
-	    kinect.startPoseDetection(&quot;Psi&quot;, userId);
-	  }
-	}
-	void onStartPose(String pose, int userId) {
-	  println(&quot;Started pose for user&quot;);
-	  kinect.stopPoseDetection(userId);
-	  kinect.requestCalibrationSkeleton(userId, true);
-	}
+            fill(255, 255, 0);
+            textSize(20);
+            if(shouju&amp;gt;400 &amp;amp;&amp;amp; youtou&amp;gt;200 &amp;amp;&amp;amp; zuotou&amp;gt;200 &amp;amp;&amp;amp; youhip&amp;gt;200 &amp;amp;&amp;amp; zuohip&amp;gt;200)
+            {
+              text(Str_w, 20, 40);
+              port.write(ch_w);
+            }
+            else if(shouju&amp;lt;200 &amp;amp;&amp;amp; youtou&amp;lt;200 &amp;amp;&amp;amp; zuotou&amp;lt;200 &amp;amp;&amp;amp; youhip&amp;gt;200 &amp;amp;&amp;amp; zuohip&amp;gt;200)
+            {
+              text(Str_s, 20, 40);
+              port.write(ch_s); 
+            }
+            else if(shouju&amp;gt;300 &amp;amp;&amp;amp; youtou&amp;gt;180 &amp;amp;&amp;amp; zuotou&amp;gt;180 &amp;amp;&amp;amp; youhip&amp;lt;150 &amp;amp;&amp;amp; zuohip&amp;gt;250)
+            {
+              text(Str_a, 20, 40);
+              port.write(ch_a); 
+            }
+            else if(shouju&amp;gt;300 &amp;amp;&amp;amp; youtou&amp;gt;180 &amp;amp;&amp;amp; zuotou&amp;gt;180 &amp;amp;&amp;amp; youhip&amp;gt;200 &amp;amp;&amp;amp; zuohip&amp;lt;150)
+            {
+              text(Str_d, 20, 40);
+              port.write(ch_d); 
+            }
+            else if(shouju&amp;lt;250 &amp;amp;&amp;amp; youtou&amp;gt;180 &amp;amp;&amp;amp; zuotou&amp;gt;180 &amp;amp;&amp;amp; youhip&amp;lt;180 &amp;amp;&amp;amp; zuohip&amp;lt;180)
+            {
+              text(Str_x, 20, 40);
+              port.write(ch_x); 
+            }        
+            /***************************************************************
+            fill(255, 0, 0);
+            ellipse(left_hip.x, left_hip.y, 15, 15);
+            ellipse(left_hand.x, left_hand.y, 15, 15);
+            ellipse(head.x, head.y, 15, 15);
+            ellipse(right_hip.x, right_hip.y, 15, 15);
+            ellipse(right_hand.x, right_hand.y, 15, 15);
+            ****************************************************************/
+            /****************************************************************
+            stroke(0, 255, 0);
+            strokeWeight(4);
+            line(right_hand.x, right_hand.y, head.x, head.y);
+            line(right_hand.x, right_hand.y, right_hip.x, right_hip.y);
+            line(left_hand.x, left_hand.y, head.x, head.y);
+            line(left_hand.x, left_hand.y, left_hip.x, left_hip.y);
+            ****************************************************************/
+        }
+      }
+      else
+      {
+          fill(255, 0, 0);
+          textSize(25);
+          text(Str_temp_NO, 280, 30);
+      }
+    }  
+    // user-tracking callbacks!
+    void onNewUser(int userId) {
+      println(&quot;start pose detection&quot;);
+      kinect.startPoseDetection(&quot;Psi&quot;, userId);
+    }
+    void onEndCalibration(int userId, boolean successful) {
+      if (successful) {
+        println(&quot;  User calibrated !!!&quot;);
+        kinect.startTrackingSkeleton(userId);
+      }
+      else {
+        println(&quot;  Failed to calibrate user !!!&quot;);
+        kinect.startPoseDetection(&quot;Psi&quot;, userId);
+      }
+    }
+    void onStartPose(String pose, int userId) {
+      println(&quot;Started pose for user&quot;);
+      kinect.stopPoseDetection(userId);
+      kinect.requestCalibrationSkeleton(userId, true);
+    }
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
