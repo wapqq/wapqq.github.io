@@ -5,16 +5,16 @@
     <description>关于前端与设计、黑客与画家 | 黄玄，Web &amp; Mobile Lover，Front-End Engineer，UX Designer | 这里是 @Hux黄玄 的个人博客，与你一起发现更大的世界。</description>
     <link>http://localhost:4000/</link>
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
-    <pubDate>Mon, 07 Aug 2017 10:21:24 +0800</pubDate>
-    <lastBuildDate>Mon, 07 Aug 2017 10:21:24 +0800</lastBuildDate>
+    <pubDate>Mon, 07 Aug 2017 10:27:47 +0800</pubDate>
+    <lastBuildDate>Mon, 07 Aug 2017 10:27:47 +0800</lastBuildDate>
     <generator>Jekyll v3.5.1</generator>
     
       <item>
         <title>博客搭建之路</title>
         <description>&lt;h1 id=&quot;为什么做博客&quot;&gt;为什么做博客&lt;/h1&gt;
-&lt;p&gt;最近一段时间一直用简书来记录自己的生活，简书很好，能够跨平台使用，还能直接发布，分享给好友等。但是如果用它来做个人主页，显然不够直观。所以我就想搭建一个个人网站，有幸看到&lt;a href=&quot;#&quot;&gt;翁天信&lt;/a&gt;(https://www.dandyweng.com/)的个人网站，很受鼓舞和启发，所以决定自己动手做一个个人博客。&lt;/p&gt;
+&lt;p&gt;最近一段时间一直用简书来记录自己的生活，简书很好，能够跨平台使用，还能直接发布，分享给好友等。但是如果用它来做个人主页，显然不够直观。所以我就想搭建一个个人网站，有幸看到&lt;a href=&quot;https://www.dandyweng.com/&quot;&gt;翁天信&lt;/a&gt;的个人网站，很受鼓舞和启发，所以决定自己动手做一个个人博客。&lt;/p&gt;
 &lt;h1 id=&quot;搭建历程&quot;&gt;搭建历程&lt;/h1&gt;
-&lt;p&gt;在网页上搜索搭建博客的文章，首先看到的是&lt;a href=&quot;#&quot;&gt;阮一峰&lt;/a&gt;(http://www.ruanyifeng.com/blog/2012/08/blogging_with_jekyll.html)的文章，他总结的写Blog的人经历的三个阶段很具有代表性&lt;/p&gt;
+&lt;p&gt;在网页上搜索搭建博客的文章，首先看到的是&lt;a href=&quot;http://www.ruanyifeng.com/blog/2012/08/blogging\_with\_jekyll.html&quot;&gt;阮一峰&lt;/a&gt;的文章，他总结的写Blog的人经历的三个阶段很具有代表性&lt;/p&gt;
 &lt;blockquote&gt;
   &lt;p&gt;第一阶段，刚接触Blog，觉得很新鲜，试着选择一个免费空间来写。
 第二阶段，发现免费空间限制太多，就自己购买域名和空间，搭建独立博客。
